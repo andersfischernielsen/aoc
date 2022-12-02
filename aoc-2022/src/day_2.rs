@@ -27,7 +27,21 @@ fn calculate_round(opponent: &str, us: &str) -> u64 {
         _ => 0,
     };
 
-    return score(us) + outcome(opponent, us);
+    let determine_choice = |opponent, outcome| match (opponent, outcome) {
+        ("A", "X") => "Z",
+        ("A", "Y") => "X",
+        ("A", "Z") => "Y",
+        ("B", "X") => "X",
+        ("B", "Y") => "Y",
+        ("B", "Z") => "Z",
+        ("C", "X") => "Y",
+        ("C", "Y") => "Z",
+        ("C", "Z") => "X",
+        _ => "",
+    };
+
+    let choice = determine_choice(opponent, us);
+    return score(choice) + outcome(opponent, choice);
 }
 
 fn calculate_scores(input: &String) -> u64 {
